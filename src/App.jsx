@@ -1,34 +1,20 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import MapView from './mapview'
+import Menu from './menu'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [lng, setLng] = useState(139.3394);
+  const [lat, setLat] = useState(35.6581);
+  const [zoom, setZoom] = useState(12);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='Wrap'>
+      <Menu />
+      <MapView center={[lng, lat]} zoom={zoom} />
+    </div>
   )
 }
 

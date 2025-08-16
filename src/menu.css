@@ -1,0 +1,21 @@
+#menu {
+  background-color: #555566;
+  width: 300px;
+}
+
+#menu.close {
+  width: 0px;
+}
+
+#menuContent {
+  background-color: #555566;
+  text-align: center;
+  font-size: 3em;
+  color: #FFFFFF;
+}
+
+#Logomark {
+  font-size: 0.5em;
+  color: #FFFFFF;
+  padding: 1em 0;
+}
