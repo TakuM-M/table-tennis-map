@@ -66,18 +66,33 @@ body {
   background-color: #f8f9fa;
 }
 
+/* メニューが開いている時のスタイル */
+.Wrap.menu-open {
+  grid-template-columns: 300px 1fr;
+}
+
+/* メニューが閉じている時のスタイル */
+.Wrap.menu-closed {
+  grid-template-columns: 100px 1fr;
+}
+
+.Wrap.menu-closed > :nth-child(1) {
+  overflow: hidden;
+}
+
+
 /* Menuセクション用のスタイル */
-.Wrap > :nth-child(1) {
+/* .Wrap > :nth-child(1) {
   grid-column: 1;
   grid-row: 1;
   border-right: 1px solid #e9ecef;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
-}
+} */
 
 /* MapViewセクション用のスタイル */
-.Wrap > :nth-child(2) {
+/* .Wrap > :nth-child(2) {
   grid-column: 2;
   grid-row: 1;
   background-color: #ffffff;
-}
+} */

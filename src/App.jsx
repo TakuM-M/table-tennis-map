@@ -10,10 +10,14 @@ function App() {
   const [lat, setLat] = useState(35.6581);
   const [zoom, setZoom] = useState(12);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const containerClassName = isMenuOpen ? 'Wrap menu-open' : 'Wrap menu-closed';
+
   return (
-    <div className='Wrap'>
-      <Menu />
-      <MapView center={[lng, lat]} zoom={zoom} />
+    <div className={containerClassName}>
+      <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <MapView lng={lng} lat={lat} zoom={zoom} />
     </div>
   )
 }

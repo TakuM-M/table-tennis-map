@@ -29,7 +29,7 @@ export default function Mapview({ lng, lat, zoom }) {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v12',
-            center: [lng, lat] || [139.3394, 35.6581],
+            center: [lng || 139.3394, lat || 35.6581],
             zoom: zoom || 12,
             keyboard: true,
         });
