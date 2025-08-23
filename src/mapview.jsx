@@ -12,7 +12,6 @@ export default function Mapview({ lng, lat, zoom }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
-    // useEffectフックを使用して、コンポーネントがマウントされた後に一度だけ地図を初期化
     useEffect(() => {
         if (map.current && lng && lat && zoom) {
             map.current.easeTo({

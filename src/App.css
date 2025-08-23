@@ -62,8 +62,6 @@ body {
   grid-template-rows: 1fr;
   grid-template-columns: auto 1fr;
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: #f8f9fa;
 }
 
 /* メニューが開いている時のスタイル */

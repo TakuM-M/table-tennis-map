@@ -1,15 +1,15 @@
 {
-    "shibuya_center": {
+    "fsx_arena": {
         "id": "1",
-        "name": "渋谷卓球センター",
-        "address": "東京都渋谷区渋谷2-1-1",
-        "lat": 35.6580,
-        "lng": 139.7016,
-        "phone": "03-1234-5678",
+        "name": "FSXアリーナ(くにたち市民総合体育館)",
+        "address": "東京都国立市富士見台２丁目４８",
+        "lat": 35.685209288004835,
+        "lng": 139.440278723082,
+        "phone": "042-573-4111",
         "hours": "9:00-22:00",
-        "website": "shibuya-pingpong.com",
+        "website": "https://kuzaidan.or.jp/gym/rule/shisetsu-T2/",
         "facilities": ["冷暖房完備", "更衣室", "シャワー", "駐車場"],
-        "price": "一般：1時間500円、学生：1時間300円"
+        "price": "市内：3時間300円、市外：3時間350円"
     },
     "shinjuku_table_tennis": {
         "id": "2",
@@ -22,161 +22,5 @@
         "website": "shinjuku-tt.jp",
         "facilities": ["最新台30台", "ロッカー", "自動販売機", "Wi-Fi"],
         "price": "平日：1時間600円、土日：1時間800円"
-    },
-    "harajuku_ping_pong": {
-        "id": "3",
-        "name": "原宿ピンポンクラブ",
-        "address": "東京都渋谷区神宮前1-15-3",
-        "lat": 35.6702,
-        "lng": 139.7026,
-        "phone": "03-3456-7890",
-        "hours": "11:00-21:00",
-        "website": "harajuku-pingpong.net",
-        "facilities": ["初心者レッスン", "プロコーチ", "レンタルラケット", "軽食"],
-        "price": "ビジター：1時間700円、会員：1時間400円"
-    },
-    "ikebukuro_sports": {
-        "id": "4",
-        "name": "池袋スポーツ卓球場",
-        "address": "東京都豊島区東池袋1-5-7",
-        "lat": 35.7295,
-        "lng": 139.7109,
-        "phone": "03-4567-8901",
-        "hours": "8:00-24:00",
-        "website": "ikebukuro-sports.com",
-        "facilities": ["24時間営業", "大会会場", "観客席", "プロショップ"],
-        "price": "一般：1時間550円、深夜：1時間750円"
-    },
-    "ueno_table_tennis": {
-        "id": "5",
-        "name": "上野卓球クラブ",
-        "address": "東京都台東区上野2-7-13",
-        "lat": 35.7090,
-        "lng": 139.7743,
-        "phone": "03-5678-9012",
-        "hours": "9:30-22:30",
-        "website": "ueno-tt-club.jp",
-        "facilities": ["団体利用可", "大型駐車場", "休憩エリア", "マッサージチェア"],
-        "price": "個人利用：1時間450円、団体：1時間350円/人"
-    },
-    "asakusa_ping_pong": {
-        "id": "6",
-        "name": "浅草ピンポン道場",
-        "address": "東京都台東区浅草1-20-5",
-        "lat": 35.7148,
-        "lng": 139.7967,
-        "phone": "03-6789-0123",
-        "hours": "10:00-20:00",
-        "website": "asakusa-pingpong.co.jp",
-        "facilities": ["伝統的雰囲気", "畳敷き休憩室", "お茶サービス", "観光客歓迎"],
-        "price": "1時間600円、外国人割引あり"
-    },
-    "akihabara_esports": {
-        "id": "7",
-        "name": "秋葉原eスポーツ卓球",
-        "address": "東京都千代田区外神田3-15-6",
-        "lat": 35.7022,
-        "lng": 139.7731,
-        "phone": "03-7890-1234",
-        "hours": "12:00-24:00",
-        "website": "akiba-esports-tt.com",
-        "facilities": ["VR卓球", "AI対戦", "配信設備", "ゲーミングチェア"],
-        "price": "VR体験：30分1000円、通常：1時間500円"
-    },
-    "ginza_premium": {
-        "id": "8",
-        "name": "銀座プレミアム卓球サロン",
-        "address": "東京都中央区銀座4-2-15",
-        "lat": 35.6762,
-        "lng": 139.7631,
-        "phone": "03-8901-2345",
-        "hours": "11:00-22:00",
-        "website": "ginza-premium-tt.jp",
-        "facilities": ["高級内装", "個室完備", "バー併設", "コンシェルジュ"],
-        "price": "平日：1時間1500円、土日：1時間2000円"
-    },
-    "odaiba_seaside": {
-        "id": "9",
-        "name": "お台場シーサイド卓球",
-        "address": "東京都港区台場1-6-1",
-        "lat": 35.6262,
-        "lng": 139.7744,
-        "phone": "03-9012-3456",
-        "hours": "9:00-21:00",
-        "website": "odaiba-seaside-tt.net",
-        "facilities": ["海が見える", "屋外テラス", "BBQ可能", "ファミリー向け"],
-        "price": "大人：1時間650円、子供：1時間350円"
-    },
-    "roppongi_international": {
-        "id": "10",
-        "name": "六本木インターナショナル卓球",
-        "address": "東京都港区六本木6-10-1",
-        "lat": 35.6627,
-        "lng": 139.7314,
-        "phone": "03-0123-4567",
-        "hours": "24時間営業",
-        "website": "roppongi-international-tt.com",
-        "facilities": ["多言語対応", "国際大会仕様", "ライブ配信", "カフェ併設"],
-        "price": "1時間800円、深夜料金1時間1000円"
-    },
-    "shibuya_youth": {
-        "id": "11",
-        "name": "渋谷ユース卓球場",
-        "address": "東京都渋谷区宇田川町15-1",
-        "lat": 35.6617,
-        "lng": 139.6980,
-        "phone": "03-1357-2468",
-        "hours": "15:00-23:00",
-        "website": "shibuya-youth-tt.org",
-        "facilities": ["学生専用時間", "勉強スペース", "格安料金", "トーナメント"],
-        "price": "学生：1時間200円、一般：1時間400円"
-    },
-    "tokyo_station": {
-        "id": "12",
-        "name": "東京駅前卓球ジム",
-        "address": "東京都千代田区丸の内1-9-1",
-        "lat": 35.6812,
-        "lng": 139.7671,
-        "phone": "03-2468-1357",
-        "hours": "6:00-23:00",
-        "website": "tokyo-station-tt.jp",
-        "facilities": ["朝活対応", "ビジネスマン向け", "シャワー完備", "スーツ収納"],
-        "price": "朝割：1時間400円、通常：1時間700円"
-    },
-    "kichijoji_community": {
-        "id": "13",
-        "name": "吉祥寺コミュニティ卓球",
-        "address": "東京都武蔵野市吉祥寺本町1-4-18",
-        "lat": 35.7033,
-        "lng": 139.5803,
-        "phone": "0422-123-4567",
-        "hours": "9:00-21:00",
-        "website": "kichijoji-community-tt.com",
-        "facilities": ["地域密着", "高齢者割引", "子供教室", "健康促進"],
-        "price": "一般：1時間500円、シニア：1時間300円"
-    },
-    "tachikawa_sports": {
-        "id": "14",
-        "name": "立川総合スポーツ卓球",
-        "address": "東京都立川市曙町2-36-2",
-        "lat": 35.6983,
-        "lng": 139.4133,
-        "phone": "042-234-5678",
-        "hours": "9:00-22:00",
-        "website": "tachikawa-sports-tt.net",
-        "facilities": ["大型施設", "複数競技対応", "大会専用台", "観客席300席"],
-        "price": "個人：1時間450円、大会利用：要相談"
-    },
-    "machida_family": {
-        "id": "15",
-        "name": "町田ファミリー卓球場",
-        "address": "東京都町田市原町田6-2-6",
-        "lat": 35.5494,
-        "lng": 139.4469,
-        "phone": "042-345-6789",
-        "hours": "10:00-20:00",
-        "website": "machida-family-tt.jp",
-        "facilities": ["ファミリー向け", "キッズエリア", "親子レッスン", "授乳室"],
-        "price": "大人：1時間500円、子供：1時間250円、ファミリーパック：1時間1000円"
     }
 }
