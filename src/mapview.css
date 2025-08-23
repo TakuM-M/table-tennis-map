@@ -19,3 +19,50 @@
   cursor: pointer;
   z-index: 1000;
 }
+
+.mapboxgl-popup-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.mapboxgl-popup-close-button {
+  /* 基本レイアウト */
+  position: absolute;
+  right: 4px;
+  top: 2px;
+
+  /* サイズとボーダー */
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+  /* 背景とテキスト */
+  background: #f5f5f5;
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  
+  /* インタラクション */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  /* 中央配置 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background: #e0e0e0;
+  border-color: #999;
+  color: #333;
+  transform: scale(1.05);
+}
+
+.mapboxgl-popup-close-button:active {
+  background: #d0d0d0;
+  transform: scale(0.95);
+}

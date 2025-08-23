@@ -33,18 +33,16 @@ export default function Mapview({ lng, lat, zoom }) {
             keyboard: true,
         });
 
-        map.current.addControl(new mapboxgl.NavigationControl());
-
+        map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         const geolocate = new mapboxgl.GeolocateControl({
             trackUserLocation: true
         });
-        map.current.addControl(geolocate);
+        map.current.addControl(geolocate, 'bottom-right');
+
 
         map.current.on('load', () => {
-            // 地図のリサイズを適切に処理
             map.current.resize();
 
-            // data.jsonをGeoJSONフォーマットに変換
             const geojsonData = {
                 type: 'FeatureCollection',
                 features: Object.keys(data).map(key => {
@@ -135,7 +133,6 @@ export default function Mapview({ lng, lat, zoom }) {
                 }
             });
 
-            // クラスターをクリックした時の処理
             map.current.on('click', 'clusters', (e) => {
                 const features = map.current.queryRenderedFeatures(e.point, {
                     layers: ['clusters']
@@ -160,17 +157,15 @@ export default function Mapview({ lng, lat, zoom }) {
 
                 // 詳細なポップアップを表示
                 const popupHTML = `
-                    <div style="padding: 10px; min-width: 250px;">
                         <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">${properties.name}</h3>
-                        <p style="margin: 5px 0;"><strong>📍 住所:</strong> ${properties.address}</p>
-                        <p style="margin: 5px 0;"><strong>📞 電話:</strong> ${properties.phone}</p>
-                        <p style="margin: 5px 0;"><strong>🕒 営業時間:</strong> ${properties.hours}</p>
-                        <p style="margin: 5px 0;"><strong>💰 料金:</strong> ${properties.price}</p>
-                        <p style="margin: 5px 0;"><strong>🏓 設備:</strong> ${properties.facilities}</p>
-                        <a href="http://${properties.website}" target="_blank" style="color: #007cbf; text-decoration: none;">
+                        <p style="margin: 5px 0; color: #333;"><strong>📍 住所:</strong> ${properties.address}</p>
+                        <p style="margin: 5px 0; color: #333;"><strong>📞 電話:</strong> ${properties.phone}</p>
+                        <p style="margin: 5px 0; color: #333;"><strong>🕒 営業時間:</strong> ${properties.hours}</p>
+                        <p style="margin: 5px 0; color: #333;"><strong>💰 料金:</strong> ${properties.price}</p>
+                        <p style="margin: 5px 0; color: #333;"><strong>🏓 設備:</strong> ${properties.facilities}</p>
+                        <a href="${properties.website}" target="_blank" style="color: #007cbf; text-decoration: none;">
                             🌐 ウェブサイトを見る
                         </a>
-                    </div>
                 `;
 
                 new mapboxgl.Popup()
@@ -220,7 +215,6 @@ export default function Mapview({ lng, lat, zoom }) {
     return (
         <div>
             <div ref={mapContainer} className="map-container" />
-            {/* <button className="get-location-button" onClick={getCurrentLocation}>Get User Location</button> */}
         </div>
     );
 }
