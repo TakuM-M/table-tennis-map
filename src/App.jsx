@@ -6,9 +6,9 @@ import Menu from './menu'
 import './App.css'
 
 function App() {
-  const [lng, setLng] = useState(139.3394);
-  const [lat, setLat] = useState(35.6581);
-  const [zoom, setZoom] = useState(12);
+  const [lng, setLng] = useState(139.76735107652206);
+  const [lat, setLat] = useState(35.68145350373527);
+  const [zoom, setZoom] = useState(9);
   const [filter, setFilter] = useState('');
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
