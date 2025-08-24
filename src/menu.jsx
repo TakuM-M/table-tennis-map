@@ -5,23 +5,60 @@ import './menu.css';
 export default function Menu({ setLng, setLat, setZoom, setSelectedLocation }) {
     const [name, setName] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchError, setSearchError] = useState(null);
 
-    const handleInputChange = (event) => {
+    const handleInputChange = async (event) => {
         const value = event.target.value;
         setName(value);
+        setSearchError(null);
 
         if (value.trim()) {
-            const results = [];
-            const searchTerm = value.toLowerCase();
+            setIsSearching(true);
+            try {
+                // 検索処理をシミュレートする（実際のAPIコールの場合はここで非同期処理）
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                const results = [];
+                const searchTerm = value.toLowerCase();
 
-            for (const key in data) {
-                if (data[key].name.toLowerCase().includes(searchTerm)) {
-                    results.push(data[key]);
+                for (const key in data) {
+                    if (data[key].name.toLowerCase().includes(searchTerm)) {
+                        results.push(data[key]);
+                    }
                 }
+                setSearchResults(results);
+            } catch (error) {
+                console.error('Search error:', error);
+                setSearchError('検索中にエラーが発生しました。');
+                setSearchResults([]);
+            } finally {
+                setIsSearching(false);
             }
-            setSearchResults(results);
         } else {
             setSearchResults([]);
+            setIsSearching(false);
+        }
+    };
+
+    const handleLocationClick = (result) => {
+        try {
+            setLng(result.lng);
+            setLat(result.lat);
+            setZoom(14);
+            setSelectedLocation(result);
+        } catch (error) {
+            console.error('Location selection error:', error);
+            setSearchError('選択した場所の読み込み中にエラーが発生しました。');
+        }
+    };
+
+    const handleWebsiteClick = (url) => {
+        try {
+            window.open(url, '_blank');
+        } catch (error) {
+            console.error('Website opening error:', error);
+            setSearchError('ウェブサイトを開けませんでした。');
         }
     };
 

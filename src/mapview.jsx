@@ -11,6 +11,8 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 export default function Mapview({ lng, lat, zoom, selectedLocation, setSelectedLocation }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (map.current && lng && lat && zoom) {
@@ -25,13 +27,39 @@ export default function Mapview({ lng, lat, zoom, selectedLocation, setSelectedL
     useEffect(() => {
         if (map.current) return;
 
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [lng || 139.3394, lat || 35.6581],
-            zoom: zoom || 12,
-            keyboard: true,
-        });
+        // Mapboxトークンのチェック
+        if (!mapboxgl.accessToken) {
+            setError('Mapboxアクセストークンが設定されていません。');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            map.current = new mapboxgl.Map({
+                container: mapContainer.current,
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: [lng || 139.3394, lat || 35.6581],
+                zoom: zoom || 12,
+                keyboard: true,
+            });
+
+            // エラーイベントのハンドリング
+            map.current.on('error', (e) => {
+                console.error('Map error:', e.error);
+                setError('地図の読み込み中にエラーが発生しました。');
+                setLoading(false);
+            });
+
+            // 地図のスタイル読み込み完了イベント
+            map.current.on('style.load', () => {
+                setLoading(false);
+            });
+        } catch (err) {
+            console.error('Map initialization error:', err);
+            setError('地図の初期化に失敗しました。');
+            setLoading(false);
+            return;
+        }
 
         map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         const geolocate = new mapboxgl.GeolocateControl({
@@ -240,8 +268,38 @@ export default function Mapview({ lng, lat, zoom, selectedLocation, setSelectedL
 
 
     return (
-        <div>
-            <div ref={mapContainer} className="map-container" />
+        <div className="map-wrapper">
+            {loading && (
+                <div className="map-loading">
+                    <div className="loading-spinner"></div>
+                    <p>地図を読み込み中...</p>
+                </div>
+            )}
+            
+            {error && (
+                <div className="map-error">
+                    <div className="error-content">
+                        <h3>エラーが発生しました</h3>
+                        <p>{error}</p>
+                        <button
+                            onClick={() => {
+                                setError(null);
+                                setLoading(true);
+                                window.location.reload();
+                            }}
+                            className="retry-button"
+                        >
+                            再読み込み
+                        </button>
+                    </div>
+                </div>
+            )}
+            
+            <div
+                ref={mapContainer}
+                className="map-container"
+                style={{ visibility: loading || error ? 'hidden' : 'visible' }}
+            />
         </div>
     );
 }
