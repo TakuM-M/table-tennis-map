@@ -4,7 +4,7 @@
 Mapboxを利用しています。
 
 ## デモ
-👉 [アプリを開く](https://your-app.vercel.app)
+👉 [アプリを開く](https://table-tennis-map.vercel.app/)
 
 ## 技術スタック
 - Next.js
