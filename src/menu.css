@@ -1,41 +1,63 @@
-#menu {
-  background-color: #555566;
-  width: 300px;
+.menuTitle {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0px;
 }
 
-#menu.close {
-  width: 0px;
+.menuContainer {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: rgba(75, 85, 99); /* 90%の透明度 */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+  opacity: 0.9;
 }
 
 #menuContent {
-  background-color: #555566;
+  background-color: transparent; /* 背景を透明に */
   text-align: center;
-  font-size: 3em;
+  font-size: 1rem; /* フォントサイズを調整 */
   color: #FFFFFF;
+  padding: 8px;
 }
 
-#Logomark {
-  font-size: 0.5em;
-  color: #FFFFFF;
-  padding: 1em 0;
+/* その他の要素も透明度を考慮して調整 */
+.searchResults {
+  background-color: rgba(31, 41, 55, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px;
 }
 
-.menuButton {
-    background: linear-gradient(90deg, #4f8cff 0%, #6a5acd 100%);
-    border: none;
-    border-radius: 24px;
-    color: white;
-    padding: 1em 2em;
-    font-size: 1.1em;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+.searchResultsHeader {
+  background-color: rgba(55, 65, 81, 0.9);
+  color: white;
 }
 
-.menuButton:hover {
-    background: linear-gradient(90deg, #6a5acd 0%, #4f8cff 100%);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+.searchResultsItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 0;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.clickable:hover {
+  color: #60a5fa;
+}
+
+.website {
+  color: #60a5fa;
+  text-decoration: underline;
 }

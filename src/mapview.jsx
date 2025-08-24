@@ -8,7 +8,7 @@ import data from './data.json';  // JSONデータを変数として取得
 // 環境変数からアクセストークンを読み込む
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
-export default function Mapview({ lng, lat, zoom }) {
+export default function Mapview({ lng, lat, zoom, selectedLocation, setSelectedLocation }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -35,7 +35,10 @@ export default function Mapview({ lng, lat, zoom }) {
 
         map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         const geolocate = new mapboxgl.GeolocateControl({
-            trackUserLocation: true
+            trackUserLocation: true,
+            fitBoundsOptions: {
+                maxZoom: 12 // 初期ズームレベルを維持
+            }
         });
         map.current.addControl(geolocate, 'bottom-right');
 
@@ -211,6 +214,30 @@ export default function Mapview({ lng, lat, zoom }) {
         };
 
     }, []); // 空の依存配列を渡すことで、初回レンダリング時に一度だけ実行される
+
+    useEffect(() => {
+        if (selectedLocation && map.current) {
+            // 座標移動完了後にポップアップを表示
+            setTimeout(() => {
+                const popupHTML = `
+                    <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">${selectedLocation.name}</h3>
+                    <p style="margin: 5px 0; color: #333;"><strong>📍 住所:</strong> ${selectedLocation.address}</p>
+                    <p style="margin: 5px 0; color: #333;"><strong>📞 電話:</strong> ${selectedLocation.phone}</p>
+                    <p style="margin: 5px 0; color: #333;"><strong>🕒 営業時間:</strong> ${selectedLocation.hours}</p>
+                    <p style="margin: 5px 0; color: #333;"><strong>💰 料金:</strong> ${selectedLocation.price}</p>
+                    <p style="margin: 5px 0; color: #333;"><strong>🏓 設備:</strong> ${selectedLocation.facilities}</p>
+                    <a href="${selectedLocation.website}" target="_blank" style="color: #007cbf; text-decoration: none;">
+                        🌐 ウェブサイトを見る
+                    </a>
+                `;
+                new mapboxgl.Popup()
+                    .setLngLat([selectedLocation.lng, selectedLocation.lat])
+                    .setHTML(popupHTML)
+                    .addTo(map.current);
+            }, 1100); // アニメーション時間より少し長く
+        }
+    }, [selectedLocation]);
+
 
     return (
         <div>

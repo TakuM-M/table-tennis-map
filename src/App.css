@@ -11,38 +11,6 @@ body {
   padding: 0; 
 }
 
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
@@ -51,46 +19,38 @@ body {
   color: #888;
 }
 
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
 
-.Wrap {
-  position: fixed;
+/* Mapbox canvasが既に以下のスタイルを持っているため、これと連携 */
+.mapboxgl-canvas {
+  position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: auto 1fr;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
-/* メニューが開いている時のスタイル */
-.Wrap.menu-open {
-  grid-template-columns: 300px 1fr;
+/* マップを背景レイヤーとして配置 */
+.mapview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/* メニューが閉じている時のスタイル */
-.Wrap.menu-closed {
-  grid-template-columns: 100px 1fr;
+.mapview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
-
-.Wrap.menu-closed > :nth-child(1) {
-  overflow: hidden;
-}
-
-
-/* Menuセクション用のスタイル */
-/* .Wrap > :nth-child(1) {
-  grid-column: 1;
-  grid-row: 1;
-  border-right: 1px solid #e9ecef;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-} */
-
-/* MapViewセクション用のスタイル */
-/* .Wrap > :nth-child(2) {
-  grid-column: 2;
-  grid-row: 1;
-  background-color: #ffffff;
-} */

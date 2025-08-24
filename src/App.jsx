@@ -13,12 +13,14 @@ function App() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const containerClassName = isMenuOpen ? 'Wrap menu-open' : 'Wrap menu-closed';
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
 
   return (
-    <div className={containerClassName}>
-      <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} filter={filter} setFilter={setFilter} />
-      <MapView lng={lng} lat={lat} zoom={zoom} />
+    <div className="app-container">
+      <MapView lng={lng} lat={lat} zoom={zoom} selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation} />
+      <Menu setLng={setLng} setLat={setLat} setZoom={setZoom} setSelectedLocation={setSelectedLocation} />
     </div>
   )
 }

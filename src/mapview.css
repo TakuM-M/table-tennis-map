@@ -1,10 +1,11 @@
 .map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: relative;
-  min-height: 400px;
-  grid-column: 3;
-  grid-row: 1;
+  z-index: 1;
+  /* grid関連のプロパティを削除 */
 }
 
 .get-location-button {
