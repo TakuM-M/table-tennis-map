@@ -1,12 +1,71 @@
 services:
-  app:
-    build: .
+  # フロントエンド
+  frontend:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.frontend
     ports:
-      - "3000:3000"
+      - "5173:5173"
     volumes:
-      - .:/app
+      - ./client:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    stdin_open: true
-    tty: true
+      - VITE_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+
+  # バックエンド  
+  backend:
+    build:
+      context: ./server          # ← server/に変更
+      dockerfile: Dockerfile.backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/app            # ← server/に変更
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=tabletennis_user
+      - DB_PASSWORD=password123
+      - DB_NAME=tabletennis_db
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # MySQL（設定はそのまま）
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword123
+      - MYSQL_DATABASE=tabletennis_db
+      - MYSQL_USER=tabletennis_user
+      - MYSQL_PASSWORD=password123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword123"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpassword123
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
