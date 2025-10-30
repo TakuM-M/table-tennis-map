@@ -1,94 +1,95 @@
--- 卓球場情報テーブルの作成
-CREATE TABLE IF NOT EXISTS table_tennis_locations (
+-- ===========================================
+-- テーブル作成スクリプト
+-- 実行順序: locations → operating_hours/pricing/reviews/images
+-- ===========================================
+
+
+CREATE TABLE IF NOT EXISTS locations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL COMMENT '施設名',
-    address TEXT COMMENT '住所',
-    latitude DECIMAL(10, 8) COMMENT '緯度',
-    longitude DECIMAL(11, 8) COMMENT '経度',
-    description TEXT COMMENT '説明',
-    facilities JSON COMMENT '設備情報',
-    operating_hours JSON COMMENT '営業時間',
-    contact_info JSON COMMENT '連絡先情報',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='卓球場情報テーブル';
+    address TEXT NOT NULL COMMENT '住所',
+    latitude DECIMAL(10, 8) NOT NULL COMMENT '緯度',
+    longitude DECIMAL(11, 8) NOT NULL COMMENT '経度',
+    description TEXT COMMENT '施設の説明',
+    phone VARCHAR(20) COMMENT '電話番号',
+    website VARCHAR(500) COMMENT 'ウェブサイトURL',
+    
+    -- 設備情報（検索しやすいようにフラグ化）
+    table_count INT COMMENT '卓球台数',
+    has_parking BOOLEAN DEFAULT FALSE COMMENT '駐車場有無',
+    has_rental_equipment BOOLEAN DEFAULT FALSE COMMENT 'レンタル用具有無',
+    has_ac_heating BOOLEAN DEFAULT FALSE COMMENT '冷暖房有無',
+    has_wifi BOOLEAN DEFAULT FALSE COMMENT 'Wi-Fi有無',
+    
+    -- メタデータ
+    is_verified BOOLEAN DEFAULT FALSE COMMENT '運営者確認済み',
+    status ENUM('active', 'temporary_closed', 'closed') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    INDEX idx_location (latitude, longitude),
+    INDEX idx_name (name),
+    FULLTEXT idx_search (name, address, description)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 開発用サンプルデータの挿入
-INSERT INTO table_tennis_locations (name, address, latitude, longitude, description, facilities, operating_hours, contact_info) VALUES
-(
-    '東京体育館',
-    '東京都渋谷区千駄ヶ谷1-17-1',
-    35.678178,
-    139.714634,
-    '大型体育施設。多目的ホールと卓球台完備。',
-    JSON_OBJECT(
-        'tables', 20,
-        'parking', true,
-        'rental_equipment', true,
-        'shower', true,
-        'locker', true
-    ),
-    JSON_OBJECT(
-        'weekday', '9:00-21:00',
-        'weekend', '9:00-17:00',
-        'holiday', '9:00-17:00'
-    ),
-    JSON_OBJECT(
-        'phone', '03-3403-1151',
-        'website', 'https://www.tef.or.jp/tmg/'
-    )
-),
-(
-    '品川区総合体育館',
-    '東京都品川区東五反田2-11-2',
-    35.626446,
-    139.728531,
-    '地域の総合体育館。卓球教室も開催。',
-    JSON_OBJECT(
-        'tables', 12,
-        'parking', true,
-        'rental_equipment', true,
-        'shower', false,
-        'locker', true
-    ),
-    JSON_OBJECT(
-        'weekday', '9:00-22:00',
-        'weekend', '9:00-21:00',
-        'holiday', '9:00-21:00'
-    ),
-    JSON_OBJECT(
-        'phone', '03-3449-4400',
-        'website', 'https://www.shinagawa-taiikukan.com/'
-    )
-),
-(
-    '渋谷区スポーツセンター',
-    '東京都渋谷区西原1-40-18',
-    35.669406,
-    139.679977,
-    '渋谷区民向けスポーツ施設。卓球場あり。',
-    JSON_OBJECT(
-        'tables', 8,
-        'parking', false,
-        'rental_equipment', true,
-        'shower', true,
-        'locker', true
-    ),
-    JSON_OBJECT(
-        'weekday', '9:00-21:30',
-        'weekend', '9:00-21:30',
-        'holiday', '9:00-21:30'
-    ),
-    JSON_OBJECT(
-        'phone', '03-3468-9051',
-        'website', 'https://www.city.shibuya.tokyo.jp/'
-    )
-);
 
--- インデックスの作成（パフォーマンス向上のため）
-CREATE INDEX idx_location ON table_tennis_locations (latitude, longitude);
-CREATE INDEX idx_name ON table_tennis_locations (name);
-CREATE INDEX idx_created_at ON table_tennis_locations (created_at);
+CREATE TABLE IF NOT EXISTS operating_hours (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT NOT NULL,
+    day_of_week TINYINT COMMENT '0=日曜, 1=月曜, ..., 6=土曜',
+    is_closed BOOLEAN DEFAULT FALSE,
+    exception_dates JSON COMMENT '特別営業・休業日',
+    open_time TIME NOT NULL,
+    close_time TIME NOT NULL,
+    notes VARCHAR(255) COMMENT '特記事項（例：第3月曜休館）',
+    
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
+    INDEX idx_location (location_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 初期データ挿入完了メッセージ
-SELECT 'データベース初期化完了' AS message, COUNT(*) AS inserted_records FROM table_tennis_locations;
+
+CREATE TABLE IF NOT EXISTS pricing (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT NOT NULL,
+    user_type ENUM('resident', 'non_resident', 'student', 'senior') NOT NULL COMMENT '利用者区分',
+    duration_hours INT NOT NULL COMMENT '利用時間（時間）',
+    price INT NOT NULL COMMENT '料金（円）',
+    notes TEXT COMMENT '補足説明',
+    
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
+    INDEX idx_location (location_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT NOT NULL,
+    user_id INT DEFAULT NULL COMMENT 'ユーザーID（将来の拡張用）',
+    reviewer_name VARCHAR(100) COMMENT '投稿者名（匿名可）',
+    is_anonymous BOOLEAN DEFAULT TRUE,
+    moderation_status ENUM('pending', 'approved', 'rejected') -- スパム対策
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    visit_date DATE COMMENT '訪問日',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
+    INDEX idx_location (location_id),
+    INDEX idx_rating (rating)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    storage_type ENUM('local', 's3', 'external'),
+    file_path VARCHAR(500), -- ローカルパスも保存
+    thumbnail_url VARCHAR(500), -- サムネイル用
+    caption VARCHAR(255),
+    display_order INT DEFAULT 0,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
+    INDEX idx_location (location_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
