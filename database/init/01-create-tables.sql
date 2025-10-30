@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     user_id INT DEFAULT NULL COMMENT 'ユーザーID（将来の拡張用）',
     reviewer_name VARCHAR(100) COMMENT '投稿者名（匿名可）',
     is_anonymous BOOLEAN DEFAULT TRUE,
-    moderation_status ENUM('pending', 'approved', 'rejected') -- スパム対策
+    moderation_status ENUM('pending', 'approved', 'rejected'), -- スパム対策
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
     visit_date DATE COMMENT '訪問日',
