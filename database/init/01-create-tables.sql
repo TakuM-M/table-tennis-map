@@ -1,9 +1,12 @@
+-- 文字コード設定
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
+
 -- ===========================================
 -- テーブル作成スクリプト
 -- 実行順序: locations → operating_hours/pricing/reviews/images
 -- ===========================================
-
-
 CREATE TABLE IF NOT EXISTS locations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL COMMENT '施設名',
