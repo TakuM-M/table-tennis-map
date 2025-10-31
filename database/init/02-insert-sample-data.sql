@@ -45,7 +45,7 @@ INSERT INTO locations (
     '042-584-2555',
     'https://hinofureai.com/topics/',
     '日野市の多目的ホール。最新の卓球台30台を完備しており、快適にプレーできます。',
-    30,     -- 最新台30台
+    NULL,     -- 最新台30台
     FALSE,  -- 駐車場情報なし
     FALSE,  -- レンタル情報なし
     FALSE,  -- 冷暖房情報なし
@@ -60,7 +60,7 @@ INSERT INTO locations (
     '東京都八王子市台町２丁目３−７',
     35.650300,
     139.322635,
-    '042-622-6720',
+    '042-625-2305',
     'https://www.city.hachioji.tokyo.jp/shisetsu/104/p020495.html',
     '八王子市の総合体育館。冷暖房完備で年中快適に利用できます。',
     NULL,
@@ -100,7 +100,7 @@ INSERT INTO operating_hours (location_id, day_of_week, is_closed, open_time, clo
 (1, 1, FALSE, '09:00:00', '22:00:00', NULL),  -- 月曜
 (1, 2, FALSE, '09:00:00', '22:00:00', NULL),  -- 火曜
 (1, 3, FALSE, '09:00:00', '22:00:00', NULL),  -- 水曜
-(1, 4, FALSE, '09:00:00', '22:00:00', NULL),  -- 木曜
+(1, 4, FALSE, '09:00:00', '22:00:00', '第2・第4木曜は休館'),  -- 木曜
 (1, 5, FALSE, '09:00:00', '22:00:00', NULL),  -- 金曜
 (1, 6, FALSE, '09:00:00', '22:00:00', NULL);  -- 土曜
 
@@ -117,7 +117,7 @@ INSERT INTO operating_hours (location_id, day_of_week, is_closed, open_time, clo
 -- 富士森体育館（9:00-21:30）
 INSERT INTO operating_hours (location_id, day_of_week, is_closed, open_time, close_time, notes) VALUES
 (3, 0, FALSE, '09:00:00', '21:30:00', NULL),
-(3, 1, FALSE, '09:00:00', '21:30:00', NULL),
+(3, 1, FALSE, '09:00:00', '21:30:00', '第2月曜休館（祝日の場合翌日）'),
 (3, 2, FALSE, '09:00:00', '21:30:00', NULL),
 (3, 3, FALSE, '09:00:00', '21:30:00', NULL),
 (3, 4, FALSE, '09:00:00', '21:30:00', NULL),
@@ -127,7 +127,7 @@ INSERT INTO operating_hours (location_id, day_of_week, is_closed, open_time, clo
 -- 小平市民総合体育館（8:30-22:00）
 INSERT INTO operating_hours (location_id, day_of_week, is_closed, open_time, close_time, notes) VALUES
 (4, 0, FALSE, '08:30:00', '22:00:00', NULL),
-(4, 1, FALSE, '08:30:00', '22:00:00', NULL),
+(4, 1, FALSE, '08:30:00', '22:00:00', '第4月曜休館（祝日の場合翌日）'),
 (4, 2, FALSE, '08:30:00', '22:00:00', NULL),
 (4, 3, FALSE, '08:30:00', '22:00:00', NULL),
 (4, 4, FALSE, '08:30:00', '22:00:00', NULL),
