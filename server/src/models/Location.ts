@@ -27,3 +27,12 @@ export interface ApiResponse<T> {
   message?: string;
   count?: number;
 }
+
+export interface SearchQuery {
+  query?: string;
+  has_parking?: string;
+  has_wifi?: string;
+  has_ac_heating?: string;
+  limit?: string;
+  offset?: string;
+}

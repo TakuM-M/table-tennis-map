@@ -1,10 +1,13 @@
 import { Router } from 'express';
-import { getAllLocations, getLocationById, searchLocations } from '../controllers/locationController.js';
+import { getAllLocations, getLocationById, searchLocations, getLocationReviews } from '../controllers/locationController.js';
+import { validateSearchParams } from '../middleware/locationMiddleware.js';
 
 const router = Router();
 
 router.get('/', getAllLocations);
+router.get('/search', validateSearchParams, searchLocations);
+router.get('/:id/reviews', getLocationReviews);
 router.get('/:id', getLocationById);
-router.get('/search', searchLocations);
+
 
 export default router;
