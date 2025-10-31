@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import { getAllLocations, getLocationById } from '../controllers/locationController.js';
+import { getAllLocations, getLocationById, searchLocations } from '../controllers/locationController.js';
 
 const router = Router();
 
-// GET /api/locations
 router.get('/', getAllLocations);
-
-// GET /api/locations/:id
 router.get('/:id', getLocationById);
+router.get('/search', searchLocations);
 
 export default router;

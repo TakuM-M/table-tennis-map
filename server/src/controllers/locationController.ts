@@ -57,3 +57,52 @@ export async function getLocationById(req: Request, res: Response): Promise<void
     });
   }
 }
+
+// 施設検索
+export async function searchLocations(req: Request, res: Response): Promise<void> {
+  try {
+    const { 
+      query,        // 検索キーワード
+      has_parking,  // 駐車場フィルター
+      has_wifi,     // Wi-Fiフィルター
+      has_ac_heating // 冷暖房フィルター
+    } = req.query;
+
+    let sql = 'SELECT * FROM locations WHERE status = ?';
+    const params: any[] = ['active'];
+
+    // キーワード検索
+    if (query) {
+      sql += ' AND (name LIKE ? OR address LIKE ?)';
+      const searchTerm = `%${query}%`;
+      params.push(searchTerm, searchTerm);
+    }
+
+    // 設備フィルター
+    if (has_parking === 'true') {
+      sql += ' AND has_parking = TRUE';
+    }
+    if (has_wifi === 'true') {
+      sql += ' AND has_wifi = TRUE';
+    }
+    if (has_ac_heating === 'true') {
+      sql += ' AND has_ac_heating = TRUE';
+    }
+
+    sql += ' ORDER BY created_at DESC';
+
+    const [rows] = await pool.execute<RowDataPacket[]>(sql, params);
+
+    res.json({
+      success: true,
+      count: rows.length,
+      data: rows
+    });
+  } catch (error) {
+    console.error('検索エラー:', error);
+    res.status(500).json({
+      success: false,
+      error: '検索エラー'
+    });
+  }
+}

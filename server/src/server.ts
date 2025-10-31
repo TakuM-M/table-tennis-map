@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 import locationRoutes from './routes/locations.js';
 import { testConnection } from './config/database.js';
 
