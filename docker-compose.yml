@@ -46,6 +46,10 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --log-bin-trust-function-creators=1
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/init:/docker-entrypoint-initdb.d
