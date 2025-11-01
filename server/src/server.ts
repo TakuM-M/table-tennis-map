@@ -30,8 +30,6 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-app.use('/api/locations', locationRoutes);
-
 // ヘルスチェック
 app.get('/api/health', async (req: Request, res: Response) => {
   const dbStatus = await testConnection();
@@ -50,3 +48,6 @@ app.listen(PORT, () => {
   console.log('========================================');
   testConnection();
 });
+
+// ルート登録
+app.use('/api/locations', locationRoutes);

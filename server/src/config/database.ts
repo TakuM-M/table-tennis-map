@@ -7,7 +7,7 @@ interface DatabaseConfig {
   user: string;
   password: string;
   database: string;
-  charset?: string;  // ← 追加
+  charset?: string;
 }
 
 // 環境変数から設定を読み込み
