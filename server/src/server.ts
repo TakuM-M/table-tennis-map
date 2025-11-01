@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import locationRoutes from './routes/locations.js';
+import authRoutes from './routes/auth.js';
 import { testConnection } from './config/database.js';
 
 // 環境変数読み込み
@@ -40,6 +41,10 @@ app.get('/api/health', async (req: Request, res: Response) => {
   });
 });
 
+// ルート登録
+app.use('/api/locations', locationRoutes);
+app.use('/api/auth', authRoutes);
+
 // サーバー起動
 app.listen(PORT, () => {
   console.log('========================================');
@@ -48,6 +53,3 @@ app.listen(PORT, () => {
   console.log('========================================');
   testConnection();
 });
-
-// ルート登録
-app.use('/api/locations', locationRoutes);
